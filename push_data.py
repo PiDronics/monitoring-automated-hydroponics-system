@@ -1,4 +1,5 @@
 import pyrebase
+from time import sleep
 import env
 from poll_sensors import poll
 
@@ -17,4 +18,5 @@ user = auth.sign_in_with_email_and_password(env.EMAIL, env.PASS)
 while True:
     result = poll()
     db.child("systems").child("pi-1").child("data-dev").push(result, user["idToken"])
+    sleep(120) # Polls and pushes every 2m to reduce overhead
     
