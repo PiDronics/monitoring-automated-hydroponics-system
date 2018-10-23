@@ -32,6 +32,8 @@ def poll():
     result = instance.read()
   except AttributeError:
     print("DHT11 Method, read() does not exist.")
+
+  try:
     if result.is_valid():
         return {
           "TimeStamp": int(time.time()), 
@@ -39,3 +41,5 @@ def poll():
           "Temperature: F": ((result.temperature * 9/5) + 32),
           "Humidity": result.humidity
         }
+  except:
+    print("Function did not return")
