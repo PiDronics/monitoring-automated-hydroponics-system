@@ -12,7 +12,10 @@ GPIO.cleanup()
 instance = dht11.DHT11(pin=17)
 
 def poll():
+  try:
     result = instance.read()
+  except AttributeError:
+    print("Method does not exist")
     if result.is_valid():
         return {
           "TimeStamp": int(time.time()), 
