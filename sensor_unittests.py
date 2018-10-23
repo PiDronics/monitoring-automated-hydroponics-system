@@ -4,7 +4,9 @@ import poll_sensors
 class TestUnitTests(TestCase):
     def setUp(self):
         print("Running the setup before the test")
-    
+        temperature = poll_sensors.result.temperature
+        temperatureInF = (temperature * 9/5) + 32
+        humidity = poll_sensors.result.humidity
 
     def test_dataTypes(self):
         self.assertIsInstance(poll_sensors.instance, DHT11)
@@ -15,7 +17,21 @@ class TestUnitTests(TestCase):
     #     res = poll()
     #     self.assertEqual(res, )
 
-    # def test_libraries(self):
+    # Testing if the temperature is within the range that the dht11 sensor can measure
+    def test_tempRange(self):
+        self.assertGreaterEqual(temperature, 0)
+        self.assertLessEqual(temperature, 50)
+
+        # Fahrenheit
+        self.assertGreaterEqual(temperatureInF, 32)
+        self.assertLessEqual(temperatureInF, 122)
+
+        # self.assertTrue(0 <= temperature <= 50)
+    
+    # Testing if the humidity is within the range that the dht11 sensor can measure
+    def test_humidityRange(self):
+        self.assertGreaterEqual(humidity, 20)
+        self.assertLessEqual(humidity, 95)
 
     def test_equal(self):
         param1 = 'wee'
