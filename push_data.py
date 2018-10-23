@@ -43,8 +43,14 @@ while True:
     
     # Commands Raspberry Pi to restart if user/administrator finds fault
     # Database push is made and flag field is changed. Value is read and restart
-    # command is iniated.
+    # command is initiated.
     
+    # Read triggerRestart flag field
     restart_flag = db.child("users").child("user1").child("systemCard").child("pi-1").child("commands").child("triggerRestart")
+
     if restart_flag:
+        # Reset triggerRestart flag field back to 0
+        db.child("users").child("user1").child("systemCard").child("pi-1").child("commands").child("triggerRestart").push(0, user["idToken"])
+        
         restart()
+        # Nothing is reachable after this function (obviously)
