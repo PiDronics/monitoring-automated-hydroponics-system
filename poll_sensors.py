@@ -17,6 +17,6 @@ def poll():
         return {
           "TimeStamp": int(time.time()), 
           "Temperature: C": result.temperature, 
-          "Temperature: F": ((result.temperature * 9/5) + 32)
+          "Temperature: F": ((result.temperature * 9/5) + 32),
           "Humidity": result.humidity
         }
