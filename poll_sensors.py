@@ -15,7 +15,7 @@ def poll():
     result = instance.read()
     if result.is_valid():
         return {
-          "Last Record": int(time.time()), 
+          "TimeStamp": int(time.time()), 
           "Temperature: %d C": % result.temperature, 
           "Temperature: %d F" % ((result.temperature * 9/5) + 32)
           "Humidity": result.humidity
