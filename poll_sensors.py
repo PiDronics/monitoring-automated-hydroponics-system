@@ -12,6 +12,7 @@ GPIO.cleanup()
 instance = dht11.DHT11(pin=17)
 
 def poll():
+  # Test if the library method read() exists
   try:
     result = instance.read()
   except AttributeError:
