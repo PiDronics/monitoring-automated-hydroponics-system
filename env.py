@@ -1,6 +1,0 @@
-API_KEY = "your-api-key"
-AUTH_DOMAIN = "projectID.firebaseapp.com"
-DATABASE_URL = "https://projectID.firebaseio.com/"
-STORAGE_BUCKET = "projectID.appspot.com"
-EMAIL = "your@email.com"
-PASS = "your-password"
