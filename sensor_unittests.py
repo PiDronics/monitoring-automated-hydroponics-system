@@ -33,6 +33,7 @@ class TestUnitTests(TestCase):
         self.assertGreaterEqual(humidity, 20)
         self.assertLessEqual(humidity, 95)
 
+    # Example
     def test_equal(self):
         param1 = 'wee'
         param2 = 'wee'
