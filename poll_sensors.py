@@ -16,6 +16,7 @@ def poll():
     if result.is_valid():
         return {
           "Last Record": str(datetime.datetime.now()), 
-          "Temperature": result.temperature, 
+          "Temperature: %d C": % result.temperature, 
+          "Temperature: %d F" % ((result.temperature * 9/5) + 32)
           "Humidity": result.humidity
         }
