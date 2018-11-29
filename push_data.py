@@ -32,6 +32,7 @@ firebase = pyrebase.initialize_app(
 )
 db = firebase.database()
 auth = firebase.auth()
+
 user = auth.sign_in_with_email_and_password(EMAIL, PASS)
 
 while True:
