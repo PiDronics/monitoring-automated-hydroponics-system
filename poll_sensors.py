@@ -1,45 +1,47 @@
-# Test if libraries are imported
-try:
-  import RPi.GPIO as GPIO
-except ImportError:
-  print("Could not load raspberry pi library.")
-
-try:
-  import dht11
-except ImportError:
-  print("Could not load dht11 temperature/humidity sensor library")
-
+import RPi.GPIO as GPIO
+import ph
+import temp
 import time
 import datetime
+import env
+import firebase
 
-# initialize GPIO and test if methods exist
-try:
-  GPIO.setwarnings(False)
-  GPIO.setmode(GPIO.BCM)
-  GPIO.cleanup()
-except:
-  print("GPIO method does not exist.")
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.cleanup()
 
-# read data using pin 17
-try:
-  instance = dht11.DHT11(pin=17)
-except:
-  print("DHT11 Method does not exist.")
+tempSensor = temp.TemperatureSensor()
+phSensor = ph.I2CSensor(99) # 99 or 63 (hexadecimal) represents the pH sensor.
+                          # Theoretically, this code can work for many i2c probes such as EC and DO by simply changing this parameter.
 
-def poll():
-  # Test if the library method read() exists
+db = firebase.Firebase()
+db = db.authenticate(env.auth_cred)
+
+
+while True:  # Repeat the code indefinitely
+
+  time.sleep(300)  # read sensor circuit every 300 sec (5 min)
+
+  # pH Sensor
   try:
-    result = instance.read()
-  except AttributeError:
-    print("DHT11 Method, read() does not exist.")
+      ph_reading = phSensor.query("R")
+      print (ph_reading)
+      try:
+        db.push(ph_reading, "pH")
+      except:
+        print("Error pushing to database")
+
+  except IOError:
+      print ("Query failed")
 
   try:
-    if result.is_valid():
-        return {
-          "TimeStamp": int(time.time()), 
-          "Temperature: C": result.temperature, 
-          "Temperature: F": ((result.temperature * 9/5) + 32),
-          "Humidity": result.humidity
-        }
-  except:
-    print("Function did not return")
+    temp_reading = tempSensor.read()
+    if temp_reading.is_valid():
+      
+      print("Temperature: %d C" % temp_reading.temperature)
+      print("Humidity: %d %%" % temp_reading.humidity)
+
+      db.push(temp_reading.temperature, "Temperature")
+      db.push(temp_reading.humidity, "Humidity")
+  except IOError:
+    print ("Query failed")

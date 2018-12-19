@@ -1,6 +1,8 @@
-API_KEY = "your-api-key"
-AUTH_DOMAIN = "projectID.firebaseapp.com"
-DATABASE_URL = "https://projectID.firebaseio.com/"
-STORAGE_BUCKET = "projectID.appspot.com"
-EMAIL = "your@email.com"
-PASS = "your-password"
+auth_cred = {
+            "API_KEY": "AIzaSyDyO0W034rgyGQg579SkVKEwEe4bdrya1w",
+            "AUTH_DOMAIN": "comp3613-pisynthesis.firebaseapp.com",
+            "DATABASE_URL": "https://comp3613-pisynthesis.firebaseio.com/",
+            "STORAGE_BUCKET": "comp3613-pisynthesis.appspot.com",
+            "EMAIL": "test1@test.com",
+            "PASS": "qwerty"
+        }

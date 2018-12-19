@@ -1,5 +1,5 @@
 import pyrebase
-from time import sleep
+from time import sleep, time
 
 class Firebase:
     
@@ -19,6 +19,9 @@ class Firebase:
         self.auth = self.firebase.auth()
         self.user = self.auth.sign_in_with_email_and_password(auth_cred["EMAIL"], auth_cred["PASS"])
     
-    def push(self, value):
-        self.db.child("users").child("user1").child("systemCard").child("pi-1").child("sensors").child("Temperature").child("current").push(value, self.user["idToken"])
+    def push(self, value, sensor):
+        # Pushing value as current
+        self.db.child("users").child("user1").child("systemCard").child("pi-1").child("sensors").child(sensor).child("current").push(value, self.user["idToken"])
 
+        # Pushing value to historic
+        self.db.child("users").child("user1").child("systemData").child("pi-1").child("sensorData").child(sensor).child("allData").push({value, int(time())}, self.user["idToken"])

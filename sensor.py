@@ -9,6 +9,3 @@ class Sensor(ABC):
     def query(self):
         pass
     
-    @abstractmethod
-    def read(self):
-        pass
