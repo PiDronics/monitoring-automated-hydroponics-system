@@ -1,8 +1,7 @@
 import time
 import RPi
-import sensor
 
-class Result(sensor.Sensor):
+class Result:
     'DHT11 sensor result returned by DHT11.read() method'
 
     ERR_NO_ERROR = 0
@@ -25,7 +24,7 @@ class Result(sensor.Sensor):
 class TemperatureSensor:
     'DHT11 sensor reader class for Raspberry'
 
-    __pin = 0
+    __pin = 17
 
     def __init__(self):
         pass

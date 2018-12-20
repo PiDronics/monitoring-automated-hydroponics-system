@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 
-class Sensor(ABC):
+class Database(ABC):
 
     def __init__(self):
         super().__init__()
     
     @abstractmethod
-    def query(self):
+    def push(self):
         pass
     
+    @abstractmethod
+    def authenticate(self):
+        pass
