@@ -1,5 +1,7 @@
 import pyrebase
 from time import sleep, time
+import datetime
+import result
 
 class Firebase:
     
@@ -18,10 +20,22 @@ class Firebase:
         self.db = self.firebase.database()
         self.auth = self.firebase.auth()
         self.user = self.auth.sign_in_with_email_and_password(auth_cred["EMAIL"], auth_cred["PASS"])
-    
-    def push(self, value, sensor):
-        # Pushing value as current
-        self.db.child("users").child("user1").child("systemCard").child("pi-1").child("sensors").child(sensor).child("current").push(value, self.user["idToken"])
+        self.uid = self.user["localId"]
 
-        # Pushing value to historic
-        self.db.child("users").child("user1").child("systemData").child("pi-1").child("sensorData").child(sensor).child("allData").push({value, int(time())}, self.user["idToken"])
+    def get_poll_time(self, pi_id):
+        obj = self.db.child("systems").child(pi_id).child(self.uid).get().val()
+        return (float(obj["interval"]) * 60)
+    
+    def push(self, value, sensor, pi_id):
+
+        reading = result.Result(value, sensor)
+
+        # Pushing value as current
+        self.db.child("users").child(self.uid).child("systemCard").child(pi_id).child("sensors").child(sensor).update({"current":value, "enabled":"true", "status": reading.status})
+        #Updating last update date and time
+        self.db.child("users").child(self.uid).child("systemCard").child(pi_id).update({"lastUpdated":reading.date_time})
+        
+        # Pushing to historic
+        self.db.child("users").child(self.uid).child("systemData").child(pi_id).child("sensorData").child(sensor).child("allData").push({"reading":26, "time": reading.unix_time})
+        # Updating last updated time
+        self.db.child("users").child(self.uid).child("systemData").child(pi_id).update({"lastUpdated":reading.date_time})

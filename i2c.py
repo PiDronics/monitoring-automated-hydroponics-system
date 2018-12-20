@@ -4,7 +4,8 @@ from time import sleep
 
 # Define I2C Sensor Class
 
-
+# This class can work with all possible i2c probes. The address of the probe wil change. Specific values represent different probes.
+# such as 99/63 for pH
 class I2CSensor:
 
     long_timeout = 1.5  # the timeout needed to query readings & calibrations

@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import ph
+import i2c
 import temp
 import time
 import datetime
@@ -11,23 +11,26 @@ GPIO.setmode(GPIO.BCM)
 GPIO.cleanup()
 
 tempSensor = temp.TemperatureSensor()
-phSensor = ph.I2CSensor(99) # 99 or 63 (hexadecimal) represents the pH sensor.
-                          # Theoretically, this code can work for many i2c probes such as EC and DO by simply changing this parameter.
+phSensor = i2c.I2CSensor(99) # 99 or 63 (hexadecimal) represents the pH sensor.
+                            # Theoretically, this code can work for many i2c probes such as EC and DO by simply changing this parameter.
 
 db = firebase.Firebase()
-db = db.authenticate(env.auth_cred)
-
+db.authenticate(env.auth_cred)
+pi_id = env.auth_cred["PI_ID"]
+poll_time = db.get_poll_time(pi_id)
 
 while True:  # Repeat the code indefinitely
 
-  time.sleep(300)  # read sensor circuit every 300 sec (5 min)
+  # read poll time from database
+  poll_time = db.get_poll_time(pi_id)
+  time.sleep(poll_time)
 
   # pH Sensor
   try:
       ph_reading = phSensor.query("R")
       print (ph_reading)
       try:
-        db.push(ph_reading, "pH")
+        db.push(ph_reading, "pH", pi_id)
       except:
         print("Error pushing to database")
 
@@ -41,7 +44,7 @@ while True:  # Repeat the code indefinitely
       print("Temperature: %d C" % temp_reading.temperature)
       print("Humidity: %d %%" % temp_reading.humidity)
 
-      db.push(temp_reading.temperature, "Temperature")
-      db.push(temp_reading.humidity, "Humidity")
+      db.push(temp_reading.temperature, "Temperature", pi_id)
+      db.push(temp_reading.humidity, "Humidity", pi_id)
   except IOError:
     print ("Query failed")
