@@ -70,7 +70,7 @@ class I2CSensor:
             return "sleep mode"
         else:
             sleep(self.short_timeout)
-        return self.read()
+        return round(float(self.read()), 1)
 
     def close(self):
         self.file_read.close()

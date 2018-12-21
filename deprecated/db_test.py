@@ -36,7 +36,7 @@ auth = firebase.auth()
 user = auth.sign_in_with_email_and_password(env.auth_cred["EMAIL"], env.auth_cred["PASS"])
 uid = user["localId"]
 
-db.child("users").child(uid).child("systemData").child("pi-1").child("sensors").child("pH").update({"avg":5.6, "current": 7.1, "max": 7.1, "min": 5.1}, user["idToken"])
+db.child("users").child(uid).child("systemData").child("PIDRONICS-TEST").child("sensors").child("pH").update({"avg":5.6, "current": 7.1, "max": 7.1, "min": 5.1}, user["idToken"])
 # obj = db.child("users").child(uid).child("systemData").child("pi-1").child("sensorData").child("Temperature").get().val()
 # calculate("Temperature", "pi-1")
 # print(obj)
