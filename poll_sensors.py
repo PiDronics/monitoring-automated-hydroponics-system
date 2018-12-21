@@ -1,11 +1,11 @@
-import RPi.GPIO as GPIO
-import i2c
-import temp
-import time
 import datetime
+import time
+
 import env
 import firebase
-
+import i2c
+import RPi.GPIO as GPIO
+import temp
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
