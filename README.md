@@ -9,4 +9,4 @@ ___
 1. `git clone https://github.com/PiDronics/monitoring-automated-hydroponics-system.git`
 2. Edit the `env.py` file with the relevant credentials.
 3. Run `pip install -r requirements.txt` to install the required libraries.
-4. Assuming pH sensor is properly connected to the Raspberry Pi, run `python system.py`. The Raspberry Pi will begin polling the sensor based on the interval set during System creation, and the reading will be viewable on the [app](https://comp3613-pisynthesis.firebaseapp.com)
+4. Assuming pH sensor is properly connected to the Raspberry Pi, run `python runner.py`. The Raspberry Pi will begin polling the sensor based on the interval set during System creation, and the reading will be viewable on the [app](https://comp3613-pisynthesis.firebaseapp.com)
