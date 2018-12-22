@@ -2,7 +2,7 @@
 
 This repository contains code that interfaces with and returns the results of various sensors on a Raspberry Pi, and pushes these results in 2 minute increments to Firebase DB. An Abstract Sensor class allows for the easy addition of various sensors, by requiring consistent methods between them for `read()`. In addition, a Firebase class was created using the Database abstract class, requiring the `authenticate()` and `push()` methods. This increases the maintainability, testability and modularity of the system.
 
-The [Product Manual] (https://docs.google.com/document/d/1FWLsea7MBdXaazkmk156T1Quhn5-B72oxn0frQKcgs8/edit?usp=sharing) can be found here on how to get started with your RPiDronics and for details on setting up the various sensors and probes.
+The [Product Manual](https://docs.google.com/document/d/1FWLsea7MBdXaazkmk156T1Quhn5-B72oxn0frQKcgs8/edit?usp=sharing) can be found here on how to get started with your RPiDronics and for details on setting up the various sensors and probes.
 ___
 
 ### Requirements
