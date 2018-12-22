@@ -42,10 +42,12 @@ class Firebase:
         self.maxVal = max(values)
         self.avgVal = round(sum(values)/float(len(values)), 1)
 
+    # Fetches the Interval field of the database, to determine how often the user wants the results updated
     def get_poll_time(self, pi_id):
         obj = self.db.child("systems").child(pi_id).child(self.uid).get(self.user["idToken"]).val()
         return (float(obj["interval"]) * 60) # Integer (minutes) is retrieved from database and multiplied by 60 (seconds)
     
+    # Fetches the results for a 24 hour period starting from the current time
     def get_24hrs(self, pi_id, sensorType):
         end = round(time() * 1000)
         print(end)

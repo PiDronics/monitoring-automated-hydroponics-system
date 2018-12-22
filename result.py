@@ -8,6 +8,7 @@ class Result:
         self.date_time = self.getDateTime()
         self.unix_time = round(time()*1000)
 
+    # Accepts a value, and extrapolates a severity status based on that value
     def getStatus(self, value, sensorType):
         status = -1
         if sensorType in "Temperature":
@@ -27,7 +28,7 @@ class Result:
             else:
                 status = 1
         return status
-    
+    # Gets the date-time using a string format for the Last Updated field in the database
     def getDateTime(self):
         now = datetime.datetime.now()
         return(now.strftime("%Y-%m-%d %H:%M"))
