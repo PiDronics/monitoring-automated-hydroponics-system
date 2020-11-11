@@ -53,7 +53,9 @@ class Firebase:
         print(end)
         start = end - (86400*1000)
         print(start)
-        obj = self.db.child("users").child(self.uid).child("systemData").child(pi_id).child("sensorData").child(sensorType).child("allData").order_by_child("time").start_at(start).end_at(end).get().val()
+        # obj = self.db.child("users").child(self.uid).child("systemData").child(pi_id).child("sensorData").child(sensorType).child("allData").order_by_child('time').start_at(start).end_at(end).get().val()
+        obj = self.db.child("users").child(self.uid).child("systemData").child(pi_id).child("sensorData").child(sensorType).child("allData").order_by_child('time').start_at(start).end_at(end).get().val()
+        
         return obj
         
     def push(self, value, sensor, pi_id):
@@ -74,4 +76,4 @@ class Firebase:
         self.calculate(sensor, pi_id)
 
         # These values are then pushed to the relevant location in the database
-        self.db.child("users").child(self.uid).child("systemData").child(pi_id).child("sensors").child(sensor).update({"avg":self.avgVal, "current": value, "max": self.maxVal, "min": self.minVal}, self.user["idToken"])
+        self.db.child("users").child(self.uid).child("systemCard").child(pi_id).child("sensors").child(sensor).update({"avg":self.avgVal, "current": value, "max": self.maxVal, "min": self.minVal}, self.user["idToken"])

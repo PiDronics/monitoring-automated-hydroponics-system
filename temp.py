@@ -24,6 +24,7 @@ class Result:
 class TemperatureSensor:
     'DHT11 sensor reader class for Raspberry'
 
+    # Connected to whichever pin the Data pin is connected to
     __pin = 17
 
     def __init__(self):
